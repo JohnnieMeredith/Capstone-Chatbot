@@ -1,0 +1,120 @@
+{"intents": [
+    {
+       
+      "patterns" : "how are glacier caves formed?",
+       
+      "tag": "Glacier cave",
+       
+      "responses": "A partly submerged glacier cave on Perito Moreno Glacier ."
+
+		},
+    {
+       
+      "patterns" : "how are glacier caves formed?",
+       
+      "tag": "Glacier cave",
+       
+      "responses": "The ice facade is approximately 60 m high"
+
+		},
+    {
+       
+      "patterns" : "how are glacier caves formed?",
+       
+      "tag": "Glacier cave",
+       
+      "responses": "Ice formations in the Titlis glacier cave"
+
+		},
+    {
+       
+      "patterns" : "how are glacier caves formed?",
+       
+      "tag": "Glacier cave",
+       
+      "responses": "A glacier cave is a cave formed within the ice of a glacier ."
+
+		},
+    {
+       
+      "patterns" : "how are glacier caves formed?",
+       
+      "tag": "Glacier cave",
+       
+      "responses": "Glacier caves are often called ice caves , but this term is properly used to describe bedrock caves that contain year-round ice."
+
+		},
+    {
+       
+      "patterns" : "How are the directions of the velocity and force vectors related in a circular motion",
+       
+      "tag": "Circular motion",
+       
+      "responses": "In physics , circular motion is a movement of an object along the circumference of a circle or rotation along a circular path."
+
+		},
+    {
+       
+      "patterns" : "How are the directions of the velocity and force vectors related in a circular motion",
+       
+      "tag": "Circular motion",
+       
+      "responses": "It can be uniform, with constant angular rate of rotation (and constant speed), or non-uniform with a changing rate of rotation."
+
+		},
+    {
+       
+      "patterns" : "How are the directions of the velocity and force vectors related in a circular motion",
+       
+      "tag": "Circular motion",
+       
+      "responses": "The rotation around a fixed axis of a three-dimensional body involves circular motion of its parts."
+
+		},
+    {
+       
+      "patterns" : "How are the directions of the velocity and force vectors related in a circular motion",
+       
+      "tag": "Circular motion",
+       
+      "responses": "The equations of motion describe the movement of the center of mass of a body."
+
+		},
+    {
+       
+      "patterns" : "How are the directions of the velocity and force vectors related in a circular motion",
+       
+      "tag": "Circular motion",
+       
+      "responses": "Examples of circular motion include: an artificial satellite orbiting the Earth at constant height, a stone which is tied to a rope and is being swung in circles, a car turning through a curve in a race track , an electron moving perpendicular to a uniform magnetic field , and a gear turning inside a mechanism."
+
+		},
+    {
+       
+      "patterns" : "How are the directions of the velocity and force vectors related in a circular motion",
+       
+      "tag": "Circular motion",
+       
+      "responses": "Since the object's velocity vector is constantly changing direction, the moving object is undergoing acceleration by a centripetal force in the direction of the center of rotation."
+
+		},
+    {
+       
+      "patterns" : "How are the directions of the velocity and force vectors related in a circular motion",
+       
+      "tag": "Circular motion",
+       
+      "responses": "Without this acceleration, the object would move in a straight line, according to Newton's laws of motion ."
+
+		},
+    {
+       
+      "patterns" : "how did apollo creed die",
+       
+      "tag": "Apollo Creed",
+       
+      "responses": "Apollo Creed is a fictional character from the Rocky films , initially portrayed as the Undisputed Heavyweight Champion of the World."
+
+        }
+]
+}
