@@ -17,6 +17,7 @@ window.title("Chatbot App")
 lbl1 = scrolledtext.ScrolledText(window,width=100,height=40,wrap=WORD)
 lbl1.grid(column=0, row=1)
 window.geometry('900x900')
+window.configure(bg='#003152')
 txt1 = Entry(window,width=60)
 txt1.grid(column=0, row=2)
 
@@ -50,16 +51,16 @@ def clicked():
     lbl1.see("end")
 
 btn = Button(window, text="Chat",command=clicked)
-btn.configure
+btn.configure(bg='white')
 btn.grid(column=1, row=2)
 window.bind('<Return>', hitenter)
 
 btnexit = Button(window, text="Exit",command=lambda: window.destroy())
-btnexit.configure
+btnexit.configure(bg='white')
 btnexit.grid(column=2, row=2)
 
 
-""" with open(os.path.abspath("C:/Users/Melanie/chatbot/ml chatbot/intents.json"),encoding="utf8") as file:
+""" with open(os.path.abspath("C:/Users/linds/rfinalchatbot/intents.json"),encoding="utf8") as file:
     data = json.load(file) """
 #nltk.download('stopwords')
 #print(data)            prints the whole file
@@ -80,10 +81,9 @@ for intent in data["intents"]:
         words.extend(wrds)
         docs_x.append(wrds)
         docs_y.append(intent["tag"])
-
         if intent["tag"] not in labels:
             labels.append(intent["tag"]) """
-with open(os.path.abspath("C:/Users/Melanie/chatbot/ml chatbot/test.json"),encoding="utf8") as file:
+with open(os.path.abspath("C:/Users/linds/rfinalchatbot/test.json"),encoding="utf8") as file:
     data = json.load(file)
 for intent in data["intents"]:
     #for pattern in intent["patterns"]:
@@ -142,10 +142,10 @@ model = tflearn.DNN(net)
 
 
 """ try:
-    model.load(os.path.abspath("C:/Users/Melanie/chatbot/ml chatbot/model.tflearn")) 
+    model.load(os.path.abspath("C:/Users/linds/rfinalchatbot/model.tflearn")) 
 except: """
 model.fit(training, output, n_epoch=2000, batch_size=8, show_metric=True)
-model.save(os.path.abspath("C:/Users/Melanie/chatbot/ml chatbot/model.tflearn"))
+model.save(os.path.abspath("C:/Users/linds/rfinalchatbot/model.tflearn"))
 
 
 def bag_of_words(s, words):
