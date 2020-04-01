@@ -15,6 +15,7 @@ import pickle
 import json
 window = Tk()
 window.title("Chatbot App")
+window.configure(bg= '#B8BCFF')
 helv36 = tkFont.Font(family='Helvetica', size=20, weight='bold')
 lbl1 = scrolledtext.ScrolledText(window,width=80,height=20,wrap=WORD)
 lbl1["font"] = helv36
@@ -40,28 +41,32 @@ def clicked():
     results_index = numpy.argmax([results])
     print('n.argmax =')
     print(results_index)
+    lbl1.tag_configure('tag-left', justify='left')
+    lbl1.tag_configure('tag-right', justify='right')
+    #lbl1.tag_configure('color-black',fg='#ffffff')
+    #lbl1.tag_configure('color-red', foreground='#ff0000')
     tag = labels[results_index]
     print(tag)
     for tg in data["intents"]:
         if tg['tag'] == tag:
             responses = tg['responses']
     lbl1.insert(INSERT,"\n\n")
-    lbl1.insert(INSERT, "YOU: " + inp + "\n\n\t") 
-    lbl1.insert(INSERT, "CHATBOT: ")           
-    lbl1.insert(INSERT,random.choice(responses))
-    lbl1.insert(INSERT,"\n\n")
+    lbl1.insert(INSERT, "YOU: \n" + inp + "\n\n\n", 'tag-left')
+    lbl1.insert(INSERT, "CHATBOT: \n",'tag-right')           
+    lbl1.insert(INSERT,random.choice(responses),'tag-right')
+    lbl1.insert(INSERT,"\n\n\n")
     txt1.delete(0, END)
     lbl1.see("end")
 
 btn = Button(window, text="Chat",padx = 45, pady = 20, command=clicked)
 btn['font'] = helv36
-btn.configure(bg='white')
+btn.configure(bg='#D1D4FF')
 btn.grid(column=1, ipadx=0,ipady=0, row=2)
 window.bind('<Return>', hitenter)
 
 btnexit = Button(window, text="Exit",padx = 45, pady = 20, command=lambda: window.destroy())
 btnexit['font'] = helv36
-btnexit.configure(bg='white')
+btnexit.configure(bg='#D1D4FF')
 btnexit.grid(column=2, row=2)
 
 
