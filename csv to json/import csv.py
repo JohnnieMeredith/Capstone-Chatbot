@@ -1,10 +1,10 @@
 import csv
 import json
 
-csvfile = open('file.csv', 'r')
-jsonfile = open('file.json', 'w')
+csvfile = open('QA.tsv', 'r')
+jsonfile = open('QAjson.json', 'w')
 
-fieldnames = ("QuestionID","Question","DocumentID","DocumentTitle","SentenceID","Sentence","Label")
+fieldnames = ("Intent","Tag", "Pattern")
 reader = csv.DictReader( csvfile, fieldnames)
 for row in reader:
     json.dump(row, jsonfile)

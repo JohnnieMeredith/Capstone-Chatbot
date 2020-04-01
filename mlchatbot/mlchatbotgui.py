@@ -1,6 +1,7 @@
 import nltk
 from tkinter import *
 from tkinter import scrolledtext
+from tkinter import font as tkFont
 from nltk.stem.lancaster import LancasterStemmer
 from nltk.corpus import stopwords
 stemmer = LancasterStemmer()
@@ -14,11 +15,14 @@ import pickle
 import json
 window = Tk()
 window.title("Chatbot App")
-lbl1 = scrolledtext.ScrolledText(window,width=100,height=40,wrap=WORD)
-lbl1.grid(column=0, row=1)
-window.geometry('900x900')
-txt1 = Entry(window,width=60)
-txt1.grid(column=0, row=2)
+helv36 = tkFont.Font(family='Helvetica', size=20, weight='bold')
+lbl1 = scrolledtext.ScrolledText(window,width=80,height=20,wrap=WORD)
+lbl1["font"] = helv36
+lbl1.grid(column=0,padx=20,pady=10,row=1,columnspan = 3,sticky=NW)
+window.geometry('1300x900')
+txt1 = Entry(window, width=50)
+txt1["font"] = helv36
+txt1.grid(column=0,padx=20,pady=10, row=2)
 
 def hitenter(self):
     clicked()
@@ -44,22 +48,24 @@ def clicked():
     lbl1.insert(INSERT,"\n\n")
     lbl1.insert(INSERT, "YOU: " + inp + "\n\n\t") 
     lbl1.insert(INSERT, "CHATBOT: ")           
-    lbl1.insert(INSERT,responses)
+    lbl1.insert(INSERT,random.choice(responses))
     lbl1.insert(INSERT,"\n\n")
     txt1.delete(0, END)
     lbl1.see("end")
 
-btn = Button(window, text="Chat",command=clicked)
+btn = Button(window, text="Chat",padx = 45, pady = 20, command=clicked)
+btn['font'] = helv36
 btn.configure
-btn.grid(column=1, row=2)
+btn.grid(column=1, ipadx=0,ipady=0, row=2)
 window.bind('<Return>', hitenter)
 
-btnexit = Button(window, text="Exit",command=lambda: window.destroy())
+btnexit = Button(window, text="Exit",padx = 45, pady = 20, command=lambda: window.destroy())
+btnexit['font'] = helv36
 btnexit.configure
 btnexit.grid(column=2, row=2)
 
 
-""" with open(os.path.abspath("C:/Users/Melanie/chatbot/ml chatbot/intents.json"),encoding="utf8") as file:
+""" with open(os.path.abspath("C:/Users/Johnnie5Dubv/Documents/chatbot/Capstone-Chatbot/mlchatbot/json stuff/intents.json"),encoding="utf8") as file:
     data = json.load(file) """
 #nltk.download('stopwords')
 #print(data)            prints the whole file
@@ -83,7 +89,7 @@ for intent in data["intents"]:
 
         if intent["tag"] not in labels:
             labels.append(intent["tag"]) """
-with open(os.path.abspath("C:/Users/Melanie/chatbot/ml chatbot/test.json"),encoding="utf8") as file:
+with open(os.path.abspath("C:/Users/Johnnie5Dubv/Documents/chatbot/Capstone-Chatbot/json stuff/QAjson.json"),encoding="utf8") as file:
     data = json.load(file)
 for intent in data["intents"]:
     #for pattern in intent["patterns"]:
@@ -142,10 +148,10 @@ model = tflearn.DNN(net)
 
 
 """ try:
-    model.load(os.path.abspath("C:/Users/Melanie/chatbot/ml chatbot/model.tflearn")) 
+    model.load(os.path.abspath("C:/Users/Johnnie5Dubv/Documents/chatbot/Capstone-Chatbot/mlchatbot/model.tflearn")) 
 except: """
-model.fit(training, output, n_epoch=2000, batch_size=8, show_metric=True)
-model.save(os.path.abspath("C:/Users/Melanie/chatbot/ml chatbot/model.tflearn"))
+model.fit(training, output, n_epoch=1, batch_size=16, show_metric=True)
+model.save(os.path.abspath("C:/Users/Johnnie5Dubv/Documents/chatbot/Capstone-Chatbot/mlchatbot/model.tflearn"))
 
 
 def bag_of_words(s, words):
