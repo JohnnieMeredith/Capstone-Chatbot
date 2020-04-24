@@ -2,7 +2,6 @@ import nltk
 from tkinter import *
 from tkinter import scrolledtext
 from tkinter import font as tkFont
-from tensorboard import *
 from nltk.stem.lancaster import LancasterStemmer
 from nltk.corpus import stopwords
 stemmer = LancasterStemmer()
@@ -42,32 +41,25 @@ def clicked():
     for tg in data["intents"]:
         if tg['tag'] == tag:
             responses = tg['responses']
-    lbl1.insert(INSERT,"\n\n")
-    lbl1.insert(INSERT, "YOU: \n" + inp + "\n\n\n", 'tag-left')
-    lbl1.insert(INSERT, "CHATBOT: \n",'tag-right')           
-    lbl1.insert(INSERT,random.choice(responses),'tag-right')
-    lbl1.insert(INSERT,"\n\n\n")
+    lbl1.insert(END,"\n\n")
+    lbl1.insert(END, "YOU: \n" + inp + "\n\n\n", 'tag-left')
+    lbl1.insert(END, "CHATBOT: \n",'tag-right')           
+    lbl1.insert(END,random.choice(responses),'tag-right')
+    lbl1.insert(END,"\n\n\n")
     txt1.delete(0, END)
     lbl1.see("end")
-  
-
-def chatbot():
-    """ with open(os.path.abspath("C:/Users/Johnnie5Dubv/Documents/chatbot/Capstone-Chatbot/mlchatbot/json stuff/intents.json"),encoding="utf8") as file:
-        data = json.load(file) """
-    #nltk.download('stopwords')
-    #print(data)            prints the whole file
-    #print(data["intents"]) prints the dictionary
-    """ try:
-        with open("./data.pickle", "rb") as f:
-            words, labels, training, output = pickle.load(f)
     
-    except: """
+def chatbot():
     global words
     global data
     global training
     global output
     global labels
     global model
+    
+    #nltk.download('stopwords')
+    #print(data)            prints the whole file
+    #print(data["intents"]) prints the dictionary
     words = []
     labels = []
     docs_x = []
@@ -75,16 +67,8 @@ def chatbot():
     training = []
     output = []
     
-    """ 
-    for intent in data["intents"]:
-        for pattern in intent["patterns"]:
-            wrds = nltk.word_tokenize(pattern)
-            words.extend(wrds)
-            docs_x.append(wrds)
-            docs_y.append(intent["tag"])
-            if intent["tag"] not in labels:
-                labels.append(intent["tag"]) """
-    with open(os.path.abspath("C:/Users/Johnnie5Dubv/Documents/chatbot/Capstone-Chatbot/json stuff/QAjson.json"),encoding="utf8") as file:
+   
+    with open("QAjson.json",encoding="utf8") as file:
         data = json.load(file)
     for intent in data["intents"]:
         #for pattern in intent["patterns"]:
@@ -97,6 +81,8 @@ def chatbot():
     words = [stemmer.stem(w.lower()) for w in words if w not in set(stopwords.words("english")) and w != '?']
     words = sorted(list(set(words)))
     print(words)
+    #print(len(words))
+    #time.sleep(5000)
     labels = sorted(labels)
     #print(labels)  #prints a list of our tags from intents file
     
@@ -118,38 +104,31 @@ def chatbot():
 
         training.append(bag)
         output.append(output_row)  
-    
+            
     training = numpy.array(training)
     output = numpy.array(output)
-
-    """ print(training)
-    print(labels)
-    print(output) """
-    NAME = "Chatbot-model-{}".format(int(time.time()))
+        
     with open("data.pickle", "wb") as f:
         pickle.dump((words, labels, training, output), f)
-
+    NAME = "Capstone-Quizbot{}".format(int(time.time()))
     tensorflow.reset_default_graph()
 
-    net = tflearn.input_data(shape=[None, len(training[0])])
-    net = tflearn.fully_connected(net, 20)
-    #net = tflearn.dropout(net, 0.1)
-    net = tflearn.fully_connected(net, 10)
-    #net = tflearn.dropout(net, 0.01)
-    net = tflearn.fully_connected(net, 20)
-    #net = tflearn.dropout(net, 0.1)
+    net = tflearn.input_data(shape=[None, len(training[0])], name='InputData')
+    net = tflearn.dropout(net, 0.5)
+    net = tflearn.fully_connected(net, 10, name='Layer_1')
+    net = tflearn.fully_connected(net, 10, name='Layer_2')
+    #net = tflearn.dropout(net, 0.2)
+    net = tflearn.fully_connected(net, 10, name='Layer_3')
     net = tflearn.fully_connected(net, len(output[0]), activation="softmax")
-    net = tflearn.regression(net)
-    model = tflearn.DNN(net, tensorboard_dir='./tfboardlog/{}'.format(NAME),tensorboard_verbose = 3) 
+    net = tflearn.regression(net, loss='categorical_crossentropy')
+    model = tflearn.DNN(net, tensorboard_dir='/tfboardlog/{}'.format(NAME),tensorboard_verbose = 3) 
 
 
-    """ try:
-        model.load(os.path.abspath("C:/Users/Johnnie5Dubv/Documents/chatbot/Capstone-Chatbot/mlchatbot/model.tflearn")) 
-    except: """
-    
-       
-    model.fit(training, output, n_epoch=1250, batch_size=32, show_metric=True)
-    model.save(os.path.abspath("C:/Users/Johnnie5Dubv/Documents/chatbot/Capstone-Chatbot/mlchatbot/model.tflearn"))
+    try:
+        model.load("./model.tflearn")
+    except:
+        model.fit(training, output, n_epoch=500, batch_size=8,validation_set=0.1, show_metric=True, shuffle=True)
+        model.save("./model.tflearn")
 
 
 def bag_of_words(s, words):
